@@ -30,16 +30,17 @@ public class cFile implements Runnable{
 		
 		for (int i = 0; i < words.length; i++)
 		{
-			//System.out.println("" + words[i]);
-			if (wordsListCompressed.contains(words[i].toLowerCase()) == false){
+			
+			if (wordsListCompressed.contains(words[i].toLowerCase()) == false)
+			{
 				wordsListCompressed.add(words[i].toLowerCase());
 			}
 			for(int a = 0; a < words.length; a++)
-			{
-				if(words[i] == words[a])
+			{	
+				if (words[a] == words[i])
 				{
+					
 					wordCounter[i]++;
-					System.out.println("here");
 				}
 			}
 			
@@ -51,7 +52,7 @@ public class cFile implements Runnable{
 		for ( int i = 0; i < wordsListCompressed.size(); i++)
 		{
 			
-			bW.write(wordsListCompressed.get(i) + " " + wordCounter[i]);
+			bW.write(" " + wordsListCompressed.get(i) + ":" + wordCounter[i]);
 			
 		
 		}
