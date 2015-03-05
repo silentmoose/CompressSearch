@@ -1,12 +1,15 @@
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class cFile implements Runnable{
+	private static String outputPath = "";
 	private static List<String> wordsListCompressed = new ArrayList<String>();
 	@SuppressWarnings("unused")
 	private static String fPath = null;
@@ -20,6 +23,7 @@ public class cFile implements Runnable{
 		}
 	}
 	public static void sortStrings(){
+
 		words = fContents.split(" ");
 		int counter = 0;
 		for (int i = 0; i < words.length; i++)
@@ -37,9 +41,23 @@ public class cFile implements Runnable{
 		}
 		
 	}
+	public static void writeResults() throws IOException{
+		BufferedWriter bW = new BufferedWriter(new FileWriter(outputPath));
+		for ( int i = 0; i < wordsListCompressed.size(); i++);
+		{
+			int a = 0;
+			bW.write(wordsListCompressed.get(a));
+			a++;
+		}
+	}
 	
-	private Runnable doE(){
-		
+	private Runnable doE() throws IOException{
+		Readfile();
+		System.out.println("File Read");
+		sortStrings();
+		System.out.println("Strings Sorted");
+		writeResults();
+		System.out.println("Results Written");
 		return null;
 		
 	}
@@ -47,10 +65,19 @@ public class cFile implements Runnable{
 	public void setfPath(String fPath) {
 		this.fPath = fPath;
 	}
+	public void setoutputPath(String path) {
+		this.outputPath = path;
+	}
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		Thread t = new Thread(this.doE());
+		Thread t = null;
+		try {
+			t = new Thread(this.doE());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		t.start();
 		
 	}
