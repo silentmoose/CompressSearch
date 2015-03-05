@@ -1,7 +1,6 @@
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,44 +10,52 @@ import java.util.List;
 public class cFile implements Runnable{
 	private static String outputPath = "";
 	private static List<String> wordsListCompressed = new ArrayList<String>();
-	@SuppressWarnings("unused")
 	private static String fPath = null;
-	@SuppressWarnings("unused")
 	private static String fContents = null;
+	private static int[] wordCounter = null;
 	private static String[] words = null;
 	public static void Readfile() throws IOException{
 		BufferedReader fReader = new BufferedReader(new FileReader(fPath));
 		while(fReader.readLine()!= null){
 			fContents+= fReader.readLine();
 		}
+		fReader.close();
 	}
 	public static void sortStrings(){
-
+		fContents = fContents.replace(",", "");
+		fContents = fContents.replace(".", "");
 		words = fContents.split(" ");
-		int counter = 0;
+		wordCounter = new int[words.length];
+		
+		
 		for (int i = 0; i < words.length; i++)
 		{
-			counter = 0;
+			//System.out.println("" + words[i]);
+			if (wordsListCompressed.contains(words[i].toLowerCase()) == false){
+				wordsListCompressed.add(words[i].toLowerCase());
+			}
 			for(int a = 0; a < words.length; a++)
 			{
-				if (wordsListCompressed.contains(words[i])){
-					
-				}else if (words[i] == words[a]){
-					counter++;
+				if(words[i] == words[a])
+				{
+					wordCounter[i]++;
+					System.out.println("here");
 				}
 			}
-			wordsListCompressed.add(words[i] + ":" + counter);
+			
 		}
 		
 	}
 	public static void writeResults() throws IOException{
 		BufferedWriter bW = new BufferedWriter(new FileWriter(outputPath));
-		for ( int i = 0; i < wordsListCompressed.size(); i++);
+		for ( int i = 0; i < wordsListCompressed.size(); i++)
 		{
-			int a = 0;
-			bW.write(wordsListCompressed.get(a));
-			a++;
+			
+			bW.write(wordsListCompressed.get(i) + " " + wordCounter[i]);
+			
+		
 		}
+		bW.close();
 	}
 	
 	private Runnable doE() throws IOException{
@@ -71,6 +78,7 @@ public class cFile implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
+		System.out.println("Starting Thread...");
 		Thread t = null;
 		try {
 			t = new Thread(this.doE());
