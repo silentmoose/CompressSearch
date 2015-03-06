@@ -1,6 +1,13 @@
-
+import java.util.Properties;
 public class main {
 	public static void main(String args[]){
+		
+		
+		
+		
+		
+		
+		
 		if (args.length != 2){
 			System.out.println("Usage: Java main (input file) (output file)");
 		}else{
