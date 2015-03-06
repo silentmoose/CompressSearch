@@ -36,10 +36,10 @@ public class cFile implements Runnable{
 				wordsListCompressed.add(words[i].toLowerCase());
 			}
 			for(int a = 0; a < words.length; a++)
-			{	
-				if (words[a] == words[i])
+			{	//System.out.println('"' + words[i] + '"' + " " + '"' + words[a] + '"');
+				if (words[i].equals(words[a]))
 				{
-					
+					System.out.println(words[i]);
 					wordCounter[i]++;
 				}
 			}
