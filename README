@@ -1,0 +1,6 @@
+CompressSearch | A utility for searching large files for strings
+
+CompressSearch caches files into a format easier for searching for Strings in large database files
+
+CompressSearch can be forked to be used more many other purposes including database streamlining for data access
+
